@@ -1,0 +1,12 @@
+{
+  "version": "0.2.0",
+  "configurations": [
+    {
+      "name": "Launch Edge against localhost",
+      "type": "msedge",  // Usado para depurar no Chrome
+      "request": "launch",
+      "url": "http://localhost",  // URL da sua aplicação React em execução
+      "webRoot": "${workspaceFolder}",  // Pasta de origem do código React          
+    }
+  ]
+}

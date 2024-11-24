@@ -1,0 +1,59 @@
+version: '3.9'
+
+services:
+  # Serviço de banco de dados (PostgreSQL)
+  postgres:
+    image: postgres:latest
+    container_name: dt_shopper_postgres
+    restart: always
+    environment:
+      POSTGRES_USER: desenvolvedor
+      POSTGRES_PASSWORD: desenvolvedor
+      POSTGRES_DB: dbDTShopper
+    ports:
+      - "5432:5432"
+    volumes:
+      - postgres-volume:/var/lib/postgresql/data
+    networks:
+      - shopper-network
+
+  # Serviço da API (Backend)
+  api:
+    build:
+      context: ./dt_shopper.api # Caminho para o diretório onde está o Dockerfile da API
+      dockerfile: Dockerfile # Nome do Dockerfile da API
+    container_name: dt_shopper-api
+    restart: always
+    environment:
+      DATABASE_URL: postgres://desenvolvedor:desenvolvedor@postgres:5432/dbDTShopper
+            
+    ports:
+      - "8080:8080"
+    depends_on:
+      - postgres
+    networks:
+      - shopper-network
+
+  # Serviço do Frontend (React)
+  frontend:
+    build:
+      context: ./dt_shopper.frontend # Caminho para o diretório onde está o Dockerfile do frontend
+      dockerfile: Dockerfile # Nome do Dockerfile do frontend
+    container_name: dt_shopper-frontend
+    restart: always
+    ports:
+      - "80:80"
+    environment:
+      NODE_ENV: production     
+    depends_on:
+      - api
+    networks:
+      - shopper-network
+
+volumes:
+  postgres-volume:
+    driver: local
+
+networks:
+  shopper-network:
+    driver: bridge
