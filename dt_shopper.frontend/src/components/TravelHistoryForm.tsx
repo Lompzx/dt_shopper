@@ -26,7 +26,7 @@ const TravelHistoryForm: React.FC = () => {
     const handleFilter = async () => {
         setLoading(true);
         try {
-            // Substitua pelo endpoint correto da sua API
+         
             const response = await travelService.listDriverHistory(userId, driverId);
             setTravelHistory(response.rides);
         } catch (error) {
