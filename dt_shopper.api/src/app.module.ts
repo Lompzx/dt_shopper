@@ -4,11 +4,12 @@ import { ConfigModule } from '@nestjs/config'; // torna possivel leitura variave
 import { MotoristasModule } from './data/motorista/data.module.motoristas';
 import { TypeOrmModule } from '@nestjs/typeorm'; 
 import { HistoricosModule } from './data/historico/data.module.historicos';
+import { join } from 'path';
 
 @Module({
   imports: [
     ConfigModule.forRoot({
-      isGlobal: true
+      isGlobal: true,      
     }),
     TypeOrmModule.forRoot({
       type: 'postgres',
