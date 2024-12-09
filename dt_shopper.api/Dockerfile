@@ -8,7 +8,7 @@ WORKDIR /app
 COPY dt_shopper.api/package*.json ./
 
 # Instale as dependências
-RUN npm install --production
+RUN npm install
 
 # Copie o restante dos arquivos da aplicação para o container
 COPY dt_shopper.api .
